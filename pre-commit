@@ -1,0 +1,10 @@
+#!/bin/sh
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR) # | grep ".*\{0,1\}$")
+if [ -n "$STAGED_FILES" ] ; then
+   echo "Generate HTML files"
+   python3 app.py
+   git add index.html 
+   git add static
+fi
+#exit 0
+

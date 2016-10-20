@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% block title %}
+{{ title }}
+{% endblock %}
+{% block article %}
+<div class="row">
+    <div class="col-md-12">
+      <h2><a href="{{ linl_to_main }}">{{ page_title }}</a></h2>
+        <hr>
+        {% for i in range(list_articles.topics|length ) %}
+            <div class="col-md-{{12 // count_col }}">
+                <h3><span class="label label-default">{{ list_articles.topics[i].title }}</span></h3>
+                {% for article in list_articles.articles %}
+                    {% if article.topic == list_articles.topics[i].slug %}
+                        <p><a href="{{ article.html_file}}">{{ article.title }}</a></p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% if (i+1) % count_col == 0 %}
+                </div>
+                <div class="col-md-12">
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

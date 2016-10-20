@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+{% block title %}
+{{ title }}
+{% endblock %}
+{% block article %}
+<div class="row">
+    <div class="col-md-12">
+      <h2><a href="{{ link_to_main }}">{{ page_title }}</a></h2>
+      <hr>
+      <h2>{{ article_title }}</h2>
+      <span class="label label-default">{{ topic }}</span>
+      <p>{{ article_text }}</p>
+      <br>
+      <a href="{{ link_to_main }}">На главную</a>
+    </div>
+</div>
+{% endblock %}

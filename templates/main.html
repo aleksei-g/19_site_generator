@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap -->
+    <link rel='stylesheet' href= "{{ static_dir }}/css/bootstrap.min.css" type='text/css' media='all'>
+  </head>
+  <body>
+      <div class="container">
+          <!-- Блок контента-->
+          <div class="row">
+            <!-- Основной блок-->
+            <div class="col-md-9">
+              {% block article %}{% endblock %}
+            </div>
+            <!--Правый блок-->
+            <div class="col-md-3">
+            </div>
+          </div>
+          <!-- Подвал сайта-->
+          <br>
+          <div class="row">
+            <div class="col-md-9">
+              <hr>
+              <p class="text-left">&copy; Copyright 2016 by aleksei-g.</p>
+            </div>
+          </div>
+      </div>
+  </body>
+</html>
