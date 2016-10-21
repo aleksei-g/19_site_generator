@@ -63,6 +63,9 @@ if __name__ == '__main__':
     if not function.check_dir_to_write(CONFIG.root):
         print('Denied access to  "%s"!' % CONFIG.root)
         sys.exit(1)
+    if not function.check_file_to_read(CONFIG.articles_file):
+        print('File "%s" not found!' % CONFIG.articles_file)
+        sys.exit(1)
     delete_old_site_page()
     articles_md = get_arcticles_md(CONFIG.articles_file)
     for article in articles_md['articles']:
