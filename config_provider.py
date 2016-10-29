@@ -1,4 +1,4 @@
-import configparser as config_parser
+import configparser
 import function
 import os
 
@@ -18,7 +18,7 @@ class ConfigProvider:
 
     def __init__(self):
         if function.check_file_to_read(self.config_file_name):
-            config = config_parser.RawConfigParser()
+            config = configparser.RawConfigParser()
             config.read(self.config_file_name, encoding='utf-8')
             self.path_to_markdown = config.get('app_setting',
                                                'path_to_markdown')
