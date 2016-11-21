@@ -1,5 +1,5 @@
 import configparser
-import function
+import functions_working_with_fs
 import os
 
 
@@ -17,7 +17,7 @@ class ConfigProvider:
     count_col_on_main_page = 3
 
     def __init__(self):
-        if function.check_file_to_read(self.config_file_name):
+        if functions_working_with_fs.check_file_to_read(self.config_file_name):
             config = configparser.RawConfigParser()
             config.read(self.config_file_name, encoding='utf-8')
             self.path_to_markdown = config.get('app_setting',

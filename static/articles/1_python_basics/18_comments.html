@@ -5,8 +5,8 @@
     <title>
 Комментарии | Энциклопедия devman
 </title>
-    <!-- Bootstrap -->
     <link rel='stylesheet' href= "../../css/bootstrap.min.css" type='text/css' media='all'>
+    <link rel="stylesheet" href="../../css/codehilite.css" type='text/css' media='all'>
   </head>
   <body>
       <div class="container">
@@ -24,20 +24,22 @@
       <p><h2>Какие бывают</h2>
 <h3>Обычные комментарии</h3>
 <p>Комментарии – способ прокомментировать код на ходу, на той же строке. </p>
-<pre class="codehilite"><code class="language-python">price = Column(BigInteger)  # рубли * 100</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">price</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">BigInteger</span><span class="p">)</span>  <span class="c1"># рубли * 100</span>
+</pre></div>
 
 
 <h3>Докстринги</h3>
 <p>Докстринг – строковая переменная, которая идёт сразу за объявлением функции, класса, метода или модуля.
 Она нужна для документирования всей функции: описания входящих параметров, результата, логики, крайних случаев.
 Заключается в тройные двойные кавычки. Вот так:</p>
-<pre class="codehilite"><code class="language-python">def tensorsolve(a, b, axes=None):
-    &quot;&quot;&quot;
-    Solve the tensor equation ``a x = b`` for x.
-    It is assumed that all indices of `x` are summed over in the product,
-    together with the rightmost indices of `a`, as is done in, for example,
-    ``tensordot(a, x, axes=len(b.shape))``.
-    &quot;&quot;&quot;</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">tensorsolve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Solve the tensor equation ``a x = b`` for x.</span>
+<span class="sd">    It is assumed that all indices of `x` are summed over in the product,</span>
+<span class="sd">    together with the rightmost indices of `a`, as is done in, for example,</span>
+<span class="sd">    ``tensordot(a, x, axes=len(b.shape))``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+</pre></div>
 
 
 <p>В серьёзных проектах из них часто генерируется документация, поэтому они могут быть большими, по несколько экранов.
@@ -51,25 +53,29 @@
 <p>Самая частая ошибка, связанная с комментариями: дублирование информации.
 В таком случае комментарий не несёт дополнительной информации, а просто переводит соседний код
 с Питона на русский/английский. Пример:</p>
-<pre class="codehilite"><code class="language-python"># загружаем данные из файла data.json
-with open('users.json', 'r') as handler:
-    data = json.load(handler)</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1"># загружаем данные из файла data.json</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;users.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handler</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+</pre></div>
 
 
 <p>Вот как можно исправить:</p>
-<pre class="codehilite"><code class="language-python">with open('users.json', 'r') as handler:
-    data = json.load(handler)</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;users.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handler</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+</pre></div>
 
 
 <p>А так – ещё лучше:</p>
-<pre class="codehilite"><code class="language-python">data = load_all_users_from_file()</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">load_all_users_from_file</span><span class="p">()</span>
+</pre></div>
 
 
 <h3>Не сопровождать комментарии</h3>
 <p>Другая частая ошибка: не менять комментарии при изменении кода. В примере выше мы загружали данные из файла. 
 Через месяц взялись за голову и поселили данные в базе данных. Код стал таким:</p>
-<pre class="codehilite"><code class="language-python"># загружаем данные из файла data.json
-data = db_session.query(User).all()</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1"># загружаем данные из файла data.json</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db_session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
 
 
 <p>Данные из файла? WAT?</p>
@@ -77,7 +83,8 @@ data = db_session.query(User).all()</code></pre>
 <p>Когда программист пишет кусок кода, он глубоко в него погружён: держит в голове все детали, связи и особые случаи.
 В таком состоянии всё поведение кажется понятным, поэтому разработчик может оставить комментарий самому себе.
 Проблема в том, что когда он переключится на другую задачу и забудет про детали, комментарий может взорвать мозг:</p>
-<pre class="codehilite"><code class="language-python">inv(strain_tensor) - rigidity.T  # правый случай</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">inv</span><span class="p">(</span><span class="n">strain_tensor</span><span class="p">)</span> <span class="o">-</span> <span class="n">rigidity</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># правый случай</span>
+</pre></div>
 
 
 <p>Правый, правда? Ну, теперь всё понятно.</p>
