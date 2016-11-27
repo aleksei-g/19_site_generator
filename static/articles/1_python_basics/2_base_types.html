@@ -5,8 +5,9 @@
     <title>
 Основные типы данных | Энциклопедия devman
 </title>
-    <link rel='stylesheet' href= "../../css/bootstrap.min.css" type='text/css' media='all'>
     <link rel="stylesheet" href="../../css/codehilite.css" type='text/css' media='all'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="../../css/styles.css"/>
   </head>
   <body>
       <div class="container">
@@ -36,18 +37,16 @@
 <p>Решётка – это знак комментария в Питоне,
 а в этом туториале результат работы команды указан на той же строчке за комментарием.</p>
 <p>
-<div class="question"> Исправьте ошибку. Программа должна выводить число <code>value</code> в кубе.</div>
+<div class="question">Исправьте ошибку. Программа должна выводить число <code>value</code> в кубе.</div>
 </p>
-<h1>===</h1>
-<p>===
-power medium
-===
-value = 5
-print(value * 3)
-===
-value = 5
-print(value ** 3)
-===</p>
+<div class="editor_wrapper">
+<div class="editor medium" id="editor_id_power">value = 5
+print(value * 3)</div>
+<div class="editor_actions"></div>
+<div class="solution" style="display: none">value = 5
+print(value ** 3)</div>
+</div>
+
 <h3>Строки</h3>
 <p>Помимо чисел в Питоне есть строки с богатым набором встроенных функций. С ними просто и удобно работать:</p>
 <div class="codehilite"><pre><span></span><span class="s1">&#39;hello&#39;</span>  <span class="c1"># строковая константа</span>
@@ -107,5 +106,70 @@ print(value ** 3)
             </div>
           </div>
       </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"></script>
+   <script>
+
+        $('.question_options li').click(function(e) {
+            $(e.target).closest('ul').find('li').removeClass('selected');
+            $(e.target).closest('ul').find('.answer-result').remove();
+            $(e.target).addClass('selected');
+            if($(e.target).hasClass('correct')) {
+                $(e.target).append('<i class="glyphicon glyphicon-ok right answer-result green"/>')
+            } else {
+                $(e.target).append('<i class="glyphicon glyphicon-remove right answer-result red"/>')
+
+            }
+        });
+
+        $('body').on('click', '.checkTask', function(e) {
+            var $btn = $(e.target),
+                editorWrapper = $btn.closest('.editor_wrapper'),
+                editorId = editorWrapper.find('.editor')[0].id,
+                editor = ace.edit(editorId),
+                solution = editorWrapper.find('.solution').text(),
+                text = editor.getValue().replace(/^\s+|\s+$/g, ''),
+                isCorrect = text == solution;
+
+            $(editorWrapper).find('.answer-result').remove();
+            if(isCorrect) {
+                $btn.after('<i class="glyphicon glyphicon-ok green answer-result"/>')
+            } else {
+                $btn.after('<i class="glyphicon glyphicon-remove red answer-result"/>')
+            }
+
+        });
+
+        $('.editor').each(function(num, editor) {
+            var editorSizes = {
+                    small: 3,
+                    medium: 10,
+                    large: 20
+                },
+                editorId = editor.id,
+                $editor = $(editor),
+                $actionsWrapper = $editor.closest('.editor_wrapper').find('.editor_actions'),
+                editorLinesAmount = null;
+
+            _.each(Object.keys(editorSizes), function(class_name) {
+                if($editor.hasClass(class_name)) {
+                    editorLinesAmount = editorSizes[class_name];
+                }
+            });
+
+            $actionsWrapper.append('<button class="btn btn-default btn-sm checkTask">Проверить</button>')
+
+            var editor = ace.edit(editorId);
+            editor.setOptions({
+                maxLines: editorLinesAmount,
+                fontSize: '18px'
+            });
+            editor.setTheme("ace/theme/github");
+            editor.getSession().setMode("ace/mode/python");
+            editor.renderer.setShowGutter(false);
+        });
+
+    </script>
   </body>
 </html>

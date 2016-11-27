@@ -1,0 +1,23 @@
+.editor {
+    margin-right: 40px;
+    margin-left: 40px;
+    border: 1px solid #e4e4e4;
+    border-radius: 5px;
+}
+
+.editor_actions {
+    margin-left: 40px;
+}
+
+.answer-result {
+    vertical-align: sub;
+    margin-left: 15px;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
