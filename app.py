@@ -69,14 +69,7 @@ def delete_old_site_page():
         os.remove(CONFIG.main_page)
 
 
-if __name__ == '__main__':
-    if not functions_working_with_fs.check_dir_to_write(CONFIG.root):
-        print('Denied access to  "%s"!' % CONFIG.root)
-        sys.exit(1)
-    if not functions_working_with_fs.check_file_to_read(CONFIG.articles_file):
-        print('File "%s" not found!' % CONFIG.articles_file)
-        sys.exit(1)
-    delete_old_site_page()
+def make_site():
     articles_md = get_arcticles_md(CONFIG.articles_file)
     for article in articles_md['articles']:
         file_md = os.path.join(CONFIG.path_to_markdown, article['source'])
@@ -93,3 +86,14 @@ if __name__ == '__main__':
                         CONFIG.main_page)
         article['html_file'] = file_html
     create_main_html(CONFIG.main_page, articles_md)
+
+
+if __name__ == '__main__':
+    if not functions_working_with_fs.check_dir_to_write(CONFIG.root):
+        print('Denied access to  "%s"!' % CONFIG.root)
+        sys.exit(1)
+    if not functions_working_with_fs.check_file_to_read(CONFIG.articles_file):
+        print('File "%s" not found!' % CONFIG.articles_file)
+        sys.exit(1)
+    delete_old_site_page()
+    make_site()
